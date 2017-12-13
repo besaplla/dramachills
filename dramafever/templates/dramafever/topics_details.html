@@ -1,0 +1,29 @@
+<div><a href="/dramafever/">Home</a></div>
+<br/>
+<label><i>Title:</i></label>
+<span>{{ topic.title }}</span>
+<br/>
+<label><i>Description:</i></label>
+<span>{{ topic.description }}</span>
+<br/>
+{% if comments_list %}
+    <span><i>Comments:</i></span>
+    <ul>
+{% for comment in comments_list %}
+
+    <li>{{ comment.comment }}</li>
+{% endfor %}
+    </ul>
+{% else %}
+    <p>No comments are available.</p>
+{% endif %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'dramafever:topics_details' topic.id%}" method="post">
+    {% csrf_token %}
+        <label for="comment">New Comment:</label><br />
+        <input type="text" name="comment" id="comment"/><br />
+        <input type="submit" value="Submit" />
+    </form>
+

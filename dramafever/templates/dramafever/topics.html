@@ -1,0 +1,22 @@
+{% if topics_list %}
+<i>Topics:</i>
+<ul>
+{% for topic in topics_list %}
+
+<li><a href="/dramafever/{{ topic.id }}/">{{ topic.title }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No topics are available.</p>
+{% endif %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'dramafever:topics' %}" method="post">
+{% csrf_token %}
+    <label for="title">New Topic:</label><br />
+    <input type="text" name="title" id="title"/><br />
+    <label for="new_topic_description">Description:</label><br />
+    <input type="text" name="description" id="description"/><br />
+    <input type="submit" value="Submit" />
+</form>
